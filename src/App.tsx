@@ -1,7 +1,12 @@
+import Constant from "./components/Constant";
 import "./App.css";
 
 function App() {
-  return <></>;
+  return (
+    <>
+      <Constant />
+    </>
+  );
 }
 
 export default App;
