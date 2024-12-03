@@ -1,14 +1,23 @@
 import { useState } from "react";
 import { IoSearch } from "react-icons/io5";
 
-const Search = () => {
+const Search = (switchValue: any) => {
   const [onFocus, setOnFocus] = useState<boolean>(false);
+  console.log(switchValue.switchValue);
   return (
     <div
       className={
         onFocus
-          ? "flex items-center rounded-full w-fit text-black bg-white transition-colors duration-300"
-          : "flex items-center rounded-full w-fit text-[#B0B0B0] hover:bg-white hover:text-black bg-[#3B3B3B] transition-colors duration-300"
+          ? `flex items-center rounded-full shadow-md w-fit ${
+              switchValue.switchValue
+                ? "text-black bg-white"
+                : "text-white bg-black"
+            }   transition-colors duration-300`
+          : `flex items-center rounded-full shadow-md w-fit text-[#B0B0B0] ${
+              switchValue.switchValue
+                ? "hover:bg-white hover:text-black bg-customGray"
+                : "hover:bg-black hover:text-white bg-gray-100"
+            } transition-colors duration-300`
       }
     >
       <div className=" h-[38px] rounded-full rounded-r-none flex items-center pl-4 bg-transparent">

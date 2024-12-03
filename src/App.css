@@ -1,8 +1,17 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
 @layer base {
   :root {
     --radius: 0.5rem
   }
+}
+
+* {
+  transition-property: all;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 150ms;
+  animation-duration: 150ms;
+
 }
