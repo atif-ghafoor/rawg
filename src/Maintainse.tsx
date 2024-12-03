@@ -17,7 +17,7 @@ const Constant = () => {
         <NavBar switchValue={switchValue} setSwitchValue={setSwitchValue} />
         <div className="flex">
           <SideBar />
-          <Content />
+          <Content switchValue={switchValue} />
         </div>
       </div>
     </>

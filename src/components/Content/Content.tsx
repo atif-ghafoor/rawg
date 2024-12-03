@@ -1,11 +1,15 @@
 import Heading from "./Heading";
+import Filters from "./Filters";
 
-const content = () => {
+interface Props {
+  switchValue: boolean;
+}
+const content = ({ switchValue }: Props) => {
   return (
     <>
       <div className="w-fit h-full border-white border-2">
         <Heading />
-        <div>content</div>
+        <Filters switchValue={switchValue} />
       </div>
     </>
   );
