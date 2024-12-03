@@ -1,10 +1,10 @@
-import Constant from "./components/Constant";
+import Maintainse from "./Maintainse";
 import "./App.css";
 
 function App() {
   return (
     <>
-      <Constant />
+      <Maintainse />
     </>
   );
 }
