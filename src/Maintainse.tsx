@@ -8,14 +8,15 @@ const Constant = () => {
   return (
     <>
       <div
+        id="theme_body"
         className={
           switchValue
-            ? "w-full h-[100vh] bg-black p-[20px] text-white transition-opacity duration-300"
-            : "w-full h-[100vh] bg-white p-[20px] text-black transition-all duration-300"
+            ? "w-full bg-[#151515] p-[20px] text-white transition-opacity duration-300"
+            : "w-full bg-white p-[20px] text-black transition-all duration-300"
         }
       >
         <NavBar switchValue={switchValue} setSwitchValue={setSwitchValue} />
-        <div className="flex">
+        <div className="flex gap-5">
           <SideBar />
           <Content switchValue={switchValue} />
         </div>

@@ -75,7 +75,7 @@ const Filter = ({
           switchValue
             ? "bg-[#262626] hover:text-white/55"
             : "bg-gray-100 hover:text-black/55"
-        } shadow-md rounded-xl px-5 py-3 text-[17px]  flex text-nowrap items-center gap-4 transition-opacity duration-100`}
+        } shadow-md rounded-xl px-5 py-3 text-[13.5px]  flex text-nowrap items-center gap-4 transition-opacity duration-100`}
       >
         <span>
           {options[0] === "Relevance" && "Order by: "}

@@ -33,7 +33,7 @@ const Filters = ({ switchValue }: Props) => {
     "Nintendo",
   ];
   return (
-    <div className="flex gap-3">
+    <div className="flex gap-3 z-10">
       <Filter
         options={options}
         selectedOrder={selectedOrder}

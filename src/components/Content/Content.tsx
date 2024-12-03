@@ -1,5 +1,6 @@
 import Heading from "./Heading";
 import Filters from "./Filters";
+import Videos from "./Videos";
 
 interface Props {
   switchValue: boolean;
@@ -7,9 +8,10 @@ interface Props {
 const content = ({ switchValue }: Props) => {
   return (
     <>
-      <div className="w-fit h-full border-white border-2">
+      <div className="w-fit h-full flex flex-col gap-3">
         <Heading />
         <Filters switchValue={switchValue} />
+        <Videos switchValue={switchValue} />
       </div>
     </>
   );

@@ -1,0 +1,9 @@
+.MoreInfo {
+  opacity: 0; /* Hidden by default */
+  /* visibility: hidden; Ensures it doesn't take up space */
+  transition: opacity 0.3s ease, visibility 0.3s ease; /* Smooth transition */
+}
+
+.card:hover .MoreInfo {
+  opacity: 1;
+}
