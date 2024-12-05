@@ -14,5 +14,11 @@ export default {
       },
     },
   },
-  plugins: [require("tailwindcss-animate")],
+  plugins: [
+    require("tailwindcss-animate"),
+    function ({ addVariant }) {
+      addVariant("odd", "&:nth-child(odd)");
+      addVariant("even", "&:nth-child(even)");
+    },
+  ],
 };

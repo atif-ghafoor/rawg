@@ -6,7 +6,7 @@ interface Props {
 }
 const Filters = ({ switchValue }: Props) => {
   const [selectedOrder, setSeletedOrder] = useState("Relevance");
-  const [plartForm, setPlatform] = useState("Platforms");
+  const [plartForm, setPlatform] = useState("All Platforms");
   const options = [
     "Relevance",
     "Date added",
@@ -16,16 +16,10 @@ const Filters = ({ switchValue }: Props) => {
     "Average rating",
   ];
   const Platforms = [
-    "Platforms",
+    "All Platforms",
     "PC",
     "PlayStation",
-    "PlayStation 4",
-    "PlayStation 5",
-    "Select all",
     "Xbox",
-    "Xbox One",
-    "Xbox Series S/X",
-    "Select all",
     "iOS",
     "Android",
     "Apple Macintosh",

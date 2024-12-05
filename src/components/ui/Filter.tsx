@@ -49,7 +49,7 @@ const Filter = ({
           optionsBarVisibltiy ? "opacity-100 scale-100" : "opacity-0 scale-0"
         } ${
           switchValue ? "bg-white text-black" : "bg-gray-100"
-        } shadow-md bg-white text-black w-full pl-5 py-2 rounded-md transition-all duration-300 ease-in-out`}
+        } shadow-md bg-white z-40 text-black w-full pl-5 py-2 rounded-md transition-all duration-300 ease-in-out`}
       >
         {options.map((option) => (
           <li

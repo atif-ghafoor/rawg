@@ -3,9 +3,10 @@ import { IoSearch } from "react-icons/io5";
 
 interface Props {
   switchValue: boolean;
+  totalGames: number;
 }
 
-const Search = ({ switchValue }: Props) => {
+const Search = ({ switchValue, totalGames }: Props) => {
   const [onFocus, setOnFocus] = useState<boolean>(false);
   return (
     <div
@@ -26,7 +27,9 @@ const Search = ({ switchValue }: Props) => {
       </div>
       <input
         className="bg-transparent border-0 outline-0 w-[50vw] h-[38px] rounded-full placeholder:text-[#B0B0B0] pl-3 rounded-l-none"
-        placeholder="Search 877, 732 games"
+        placeholder={`Search ${
+          !Number.isNaN(totalGames) ? totalGames : "..."
+        } games`}
         type="text"
         onFocus={() => setOnFocus(true)}
         onBlur={() => setOnFocus(false)}

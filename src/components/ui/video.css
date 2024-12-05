@@ -1,9 +1,10 @@
 .MoreInfo {
   opacity: 0; /* Hidden by default */
-  /* visibility: hidden; Ensures it doesn't take up space */
-  transition: opacity 0.3s ease, visibility 0.3s ease; /* Smooth transition */
+  visibility: hidden;
+  transition: opacity 0.5s ease-in-out, visibility 0.5s ease-in-out; /* Smooth transition */
 }
 
-.card:hover .MoreInfo {
+.video-card:hover .MoreInfo {
   opacity: 1;
+  visibility: visible;
 }
