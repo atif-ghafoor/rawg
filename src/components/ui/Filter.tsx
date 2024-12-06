@@ -1,25 +1,61 @@
 import { useEffect, useRef, useState } from "react";
 import { IoIosArrowDown, IoMdCheckmark } from "react-icons/io";
+import { Params } from "../../services/useService";
 
 interface Props {
   switchValue: boolean;
-  options: string[];
+  options: {
+    name: string;
+    id: string;
+  }[];
   selectedOrder: string;
   setSeletedOrder: (value: string) => void;
+  axiosParams?: Params;
+  setAxiosParams?: (value: Params) => void;
 }
+
+const platforms = [
+  "All Platforms",
+  "PC",
+  "PlayStation",
+  "Xbox",
+  "iOS",
+  "Android",
+  "Apple Macintosh",
+  "Linux",
+  "Nintendo",
+];
 
 const Filter = ({
   switchValue,
   options,
   selectedOrder,
   setSeletedOrder,
+  setAxiosParams,
+  axiosParams,
 }: Props) => {
   const [optionsBarVisibltiy, setoptionsBarVisibltiy] = useState(false);
   const optionsBar = useRef<HTMLUListElement>(null);
 
-  function handleOptionClick(option: string) {
+  function handleOptionClick(option: string, id: string) {
     setSeletedOrder(option);
     setoptionsBarVisibltiy(!optionsBarVisibltiy);
+    if (option === selectedOrder) return;
+    if (id === "" && axiosParams) {
+      if (option === "Relevance") {
+        const { ordering, ...rest } = axiosParams;
+        setAxiosParams?.(rest);
+        return;
+      }
+      const { platforms, ...rest } = axiosParams;
+      setAxiosParams?.(rest);
+      return;
+    }
+    if (platforms.includes(option)) {
+      setAxiosParams?.({ ...axiosParams, platforms: id });
+      return;
+    }
+    setAxiosParams?.({ ...axiosParams, ordering: "-" + id });
   }
 
   const handleClickOutside = (event: MouseEvent) => {
@@ -53,15 +89,17 @@ const Filter = ({
       >
         {options.map((option) => (
           <li
-            onClick={() => handleOptionClick(option)}
+            onClick={() => handleOptionClick(option.name, option.id)}
             className="hover:opacity-60 transition-opacity duration-200 cursor-default flex justify-between items-center"
-            key={option}
+            key={option.name}
           >
-            {option}
+            {option.name}
             <IoMdCheckmark
               size={"18px"}
               className={
-                selectedOrder === option ? "mr-[20px] text-green-500" : "hidden"
+                selectedOrder === option.name
+                  ? "mr-[20px] text-green-500"
+                  : "hidden"
               }
             />
           </li>
@@ -78,7 +116,7 @@ const Filter = ({
         } shadow-md rounded-xl px-5 py-3 text-[13.5px]  flex text-nowrap items-center gap-4 transition-opacity duration-100`}
       >
         <span>
-          {options[0] === "Relevance" && "Order by: "}
+          {options[0].name === "Relevance" && "Order by: "}
           <span className="font-bold">{selectedOrder}</span>
         </span>
         <IoIosArrowDown className="" size={"18px"} />

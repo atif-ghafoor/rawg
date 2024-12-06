@@ -16,6 +16,8 @@ export type Data = {
 export interface Params {
   genres?: string;
   search?: string;
+  platforms?: string;
+  ordering?: string;
 }
 class userService {
   getGames(params: Params) {

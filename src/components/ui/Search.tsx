@@ -6,6 +6,7 @@ import { useForm } from "react-hook-form";
 interface Props {
   switchValue: boolean;
   totalGames: number;
+  axiosParams: Params;
   setAxiosParams: (value: Params) => void;
   searchValue: string;
   setSearchValue: (value: string) => void;
@@ -16,6 +17,7 @@ const Search = ({
   switchValue,
   totalGames,
   setAxiosParams,
+  axiosParams,
   searchValue,
   setSearchValue,
   setHeaderText,
@@ -24,7 +26,8 @@ const Search = ({
   const [onFocus, setOnFocus] = useState<boolean>(false);
   const onsubmit = () => {
     setHeaderText("Search");
-    setAxiosParams({ search: searchValue });
+    const { genres, ...rest } = axiosParams;
+    setAxiosParams({ ...rest, search: searchValue });
   };
   const HandleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchValue(e.target.value);

@@ -10,6 +10,7 @@ interface Props {
   switchValue: boolean;
   setTotalGames: (value: number) => void;
   axiosParams: Params;
+  setAxiosParams: (value: Params) => void;
   headerText: string;
 }
 
@@ -17,6 +18,7 @@ const content = ({
   switchValue,
   setTotalGames,
   axiosParams,
+  setAxiosParams,
   headerText,
 }: Props) => {
   const [gamesData, setGamesData] = useState<Data[]>();
@@ -44,7 +46,11 @@ const content = ({
     <>
       <div className="w-full h-full flex flex-col gap-3">
         <Heading text={headerText} />
-        <Filters switchValue={switchValue} />
+        <Filters
+          axiosParams={axiosParams}
+          setAxiosParams={setAxiosParams}
+          switchValue={switchValue}
+        />
         {isLoading ? (
           <Spinner switchValue={switchValue} />
         ) : (

@@ -2,14 +2,14 @@ import Images, { ImageKeys } from "../../services/AllImages";
 import { Params } from "../../services/useService";
 
 interface Props {
-  // selctedGenre: Params;
+  axiosParams: Params;
   setAxiosParams: (value: Params) => void;
   setSearchValue: (value: string) => void;
   setHeaderText: (value: string) => void;
   headerText: string;
 }
 const SideBar = ({
-  // selctedGenre,
+  axiosParams,
   setAxiosParams,
   setSearchValue,
   setHeaderText,
@@ -29,7 +29,8 @@ const SideBar = ({
     if (headerText === "All Games") return;
     setSearchValue("");
     setHeaderText("All Games");
-    setAxiosParams({});
+    const { platforms } = axiosParams;
+    setAxiosParams({ platforms });
   };
   const handleGenreClick = (genre: ImageKeys) => {
     const slug = genre.toLowerCase();
@@ -37,11 +38,12 @@ const SideBar = ({
     if (headerText === headertext) return;
     setSearchValue("");
     setHeaderText(headertext);
+    const { search, ...rest } = axiosParams;
     if (slug === "rpg") {
-      setAxiosParams({ genres: "role-playing-games-rpg" });
+      setAxiosParams({ ...rest, genres: "role-playing-games-rpg" });
       return;
     }
-    setAxiosParams({ genres: slug });
+    setAxiosParams({ ...rest, genres: slug });
   };
   return (
     <div className="h-fit p-[20px] pl-0 w-fit max-w-fit flex flex-col">

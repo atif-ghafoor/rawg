@@ -6,6 +6,7 @@ interface Props {
   switchValue: boolean;
   setSwitchValue: (value: boolean) => void;
   totalGames: number;
+  axiosParams: Params;
   setAxiosParams: (value: Params) => void;
   setSearchValue: (value: string) => void;
   searchValue: string;
@@ -17,6 +18,7 @@ const NavBar = ({
   setSwitchValue,
   totalGames,
   setAxiosParams,
+  axiosParams,
   searchValue,
   setSearchValue,
   setHeaderText,
@@ -34,6 +36,7 @@ const NavBar = ({
           setHeaderText={setHeaderText}
           setSearchValue={setSearchValue}
           searchValue={searchValue}
+          axiosParams={axiosParams}
           setAxiosParams={setAxiosParams}
           totalGames={totalGames}
           switchValue={switchValue}
