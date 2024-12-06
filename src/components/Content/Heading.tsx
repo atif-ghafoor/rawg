@@ -1,8 +1,8 @@
 interface Props {
-  text?: string;
+  text: string;
 }
 
-const Heading = ({ text = "New and trending" }: Props) => {
+const Heading = ({ text }: Props) => {
   return <h1 className="text-[70px] font-bold">{text}</h1>;
 };
 

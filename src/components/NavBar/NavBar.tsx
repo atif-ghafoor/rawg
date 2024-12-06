@@ -1,13 +1,26 @@
 import Search from "../ui/Search";
 import { Switch } from "..//ui/switch";
+import { Params } from "../../services/useService";
 
 interface Props {
   switchValue: boolean;
   setSwitchValue: (value: boolean) => void;
   totalGames: number;
+  setAxiosParams: (value: Params) => void;
+  setSearchValue: (value: string) => void;
+  searchValue: string;
+  setHeaderText: (value: string) => void;
 }
 
-const NavBar = ({ switchValue, setSwitchValue, totalGames }: Props) => {
+const NavBar = ({
+  switchValue,
+  setSwitchValue,
+  totalGames,
+  setAxiosParams,
+  searchValue,
+  setSearchValue,
+  setHeaderText,
+}: Props) => {
   const handleCheckedChange = (checked: boolean) => {
     setSwitchValue(checked);
   };
@@ -17,7 +30,14 @@ const NavBar = ({ switchValue, setSwitchValue, totalGames }: Props) => {
         RAWG
       </h1>
       <div>
-        <Search totalGames={totalGames} switchValue={switchValue} />
+        <Search
+          setHeaderText={setHeaderText}
+          setSearchValue={setSearchValue}
+          searchValue={searchValue}
+          setAxiosParams={setAxiosParams}
+          totalGames={totalGames}
+          switchValue={switchValue}
+        />
       </div>
       <div className="flex items-center space-x-2">
         <Switch

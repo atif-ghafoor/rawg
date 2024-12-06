@@ -2,10 +2,19 @@ import Images, { ImageKeys } from "../../services/AllImages";
 import { Params } from "../../services/useService";
 
 interface Props {
-  selctedGenre: Params;
-  setGenre: (value: Params) => void;
+  // selctedGenre: Params;
+  setAxiosParams: (value: Params) => void;
+  setSearchValue: (value: string) => void;
+  setHeaderText: (value: string) => void;
+  headerText: string;
 }
-const SideBar = ({ selctedGenre, setGenre }: Props) => {
+const SideBar = ({
+  // selctedGenre,
+  setAxiosParams,
+  setSearchValue,
+  setHeaderText,
+  headerText,
+}: Props) => {
   const genres: ImageKeys[] = [
     "Action",
     "Strategy",
@@ -17,21 +26,29 @@ const SideBar = ({ selctedGenre, setGenre }: Props) => {
     "Sports",
   ];
   const handleHomeClick = () => {
-    if (!selctedGenre.genres) return;
-    setGenre({});
+    if (headerText === "All Games") return;
+    setSearchValue("");
+    setHeaderText("All Games");
+    setAxiosParams({});
   };
   const handleGenreClick = (genre: ImageKeys) => {
     const slug = genre.toLowerCase();
-    if (selctedGenre.genres === slug) return;
-    setGenre({ genres: slug });
+    const headertext = genre.toUpperCase().split("-").join(" ");
+    if (headerText === headertext) return;
+    setSearchValue("");
+    setHeaderText(headertext);
+    if (slug === "rpg") {
+      setAxiosParams({ genres: "role-playing-games-rpg" });
+      return;
+    }
+    setAxiosParams({ genres: slug });
   };
-  console.log(selctedGenre);
   return (
     <div className="h-fit p-[20px] pl-0 w-fit max-w-fit flex flex-col">
       <h1
         onClick={handleHomeClick}
         className={`text-[30px] ${
-          !selctedGenre.genres && "opacity-60 !cursor-default"
+          headerText === "All Games" && "opacity-60 !cursor-default"
         } hover:opacity-60 cursor-pointer text-nowrap mb-2 font-bold`}
       >
         All Games
@@ -42,8 +59,7 @@ const SideBar = ({ selctedGenre, setGenre }: Props) => {
           onClick={() => handleGenreClick(genre)}
           key={genre}
           className={`flex w-fit ${
-            selctedGenre.genres === genre.toLocaleLowerCase() &&
-            "opacity-60 !cursor-default"
+            headerText === genre.toUpperCase() && "opacity-60 !cursor-default"
           } gap-3 text-nowrap items-center p-1 pl-[1px] cursor-pointer text-[20px] hover:opacity-60 transition-opacity duration-200  rounded-md px-3`}
         >
           <img

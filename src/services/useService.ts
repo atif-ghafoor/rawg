@@ -15,6 +15,7 @@ export type Data = {
 };
 export interface Params {
   genres?: string;
+  search?: string;
 }
 class userService {
   getGames(params: Params) {
@@ -36,7 +37,7 @@ class userService {
         added: game.added,
         metacritic: game.metacritic,
         rating: game.rating,
-        ratings: game.ratings[0].title,
+        ratings: game.ratings.length !== 0 && game.ratings[0].title,
         parent_platforms: game.parent_platforms.map((platform: any) => {
           return platform.platform;
         }),

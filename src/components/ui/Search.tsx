@@ -1,15 +1,38 @@
 import { useState } from "react";
 import { IoSearch } from "react-icons/io5";
+import { Params } from "../../services/useService";
+import { useForm } from "react-hook-form";
 
 interface Props {
   switchValue: boolean;
   totalGames: number;
+  setAxiosParams: (value: Params) => void;
+  searchValue: string;
+  setSearchValue: (value: string) => void;
+  setHeaderText: (value: string) => void;
 }
 
-const Search = ({ switchValue, totalGames }: Props) => {
+const Search = ({
+  switchValue,
+  totalGames,
+  setAxiosParams,
+  searchValue,
+  setSearchValue,
+  setHeaderText,
+}: Props) => {
+  const { handleSubmit } = useForm();
   const [onFocus, setOnFocus] = useState<boolean>(false);
+  const onsubmit = () => {
+    setHeaderText("Search");
+    setAxiosParams({ search: searchValue });
+  };
+  const HandleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchValue(e.target.value);
+  };
   return (
-    <div
+    <form
+      action=""
+      onSubmit={handleSubmit(onsubmit)}
       className={
         onFocus
           ? `flex items-center rounded-full shadow-md w-fit ${
@@ -22,19 +45,24 @@ const Search = ({ switchValue, totalGames }: Props) => {
             } transition-colors duration-300`
       }
     >
-      <div className=" h-[38px] rounded-full rounded-r-none flex items-center pl-4 bg-transparent">
+      <button
+        type="submit"
+        className=" h-[38px] rounded-full rounded-r-none flex items-center pl-4 bg-transparent"
+      >
         <IoSearch size={"15px"} className="" />
-      </div>
+      </button>
       <input
         className="bg-transparent border-0 outline-0 w-[50vw] h-[38px] rounded-full placeholder:text-[#B0B0B0] pl-3 rounded-l-none"
         placeholder={`Search ${
-          !Number.isNaN(totalGames) ? totalGames : "..."
+          !Number.isNaN(totalGames) ? totalGames.toLocaleString() : "..."
         } games`}
         type="text"
+        value={searchValue}
+        onChange={HandleInputChange}
         onFocus={() => setOnFocus(true)}
         onBlur={() => setOnFocus(false)}
       />
-    </div>
+    </form>
   );
 };
 

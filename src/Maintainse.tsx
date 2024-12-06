@@ -7,7 +7,9 @@ import { Params } from "./services/useService";
 const Constant = () => {
   const [switchValue, setSwitchValue] = useState(true);
   const [totalGames, setTotalGames] = useState<number>(NaN);
-  const [selctedGenre, setGenre] = useState<Params>({});
+  const [searchValue, setSearchValue] = useState<string>("");
+  const [axiosParams, setAxiosParams] = useState<Params>({});
+  const [headerText, setHeaderText] = useState("");
   useEffect(() => {
     const Body = document.body;
     if (switchValue) {
@@ -31,15 +33,25 @@ const Constant = () => {
         className="w-full p-[20px] transition-all duration-300"
       >
         <NavBar
+          setHeaderText={setHeaderText}
+          setSearchValue={setSearchValue}
+          searchValue={searchValue}
+          setAxiosParams={setAxiosParams}
           totalGames={totalGames}
           switchValue={switchValue}
           setSwitchValue={setSwitchValue}
         />
         <div className="flex gap-5">
-          <SideBar selctedGenre={selctedGenre} setGenre={setGenre} />
+          <SideBar
+            headerText={headerText}
+            setHeaderText={setHeaderText}
+            setSearchValue={setSearchValue}
+            // selctedGenre={selctedGenre}
+            setAxiosParams={setAxiosParams}
+          />
           <Content
-            selctedGenre={selctedGenre}
-            setGenre={setGenre}
+            headerText={headerText}
+            axiosParams={axiosParams}
             setTotalGames={setTotalGames}
             switchValue={switchValue}
           />
