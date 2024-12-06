@@ -23,18 +23,19 @@ const content = ({
 }: Props) => {
   const [gamesData, setGamesData] = useState<Data[]>();
   const [isLoading, setLoading] = useState(false);
+  const [onScrolLoading, setOnScrolLoding] = useState(false);
+  const [nextPage, setNextPage] = useState(null);
   useEffect(() => {
     setLoading(true);
     const { request, cancel } = useService.getGames(axiosParams);
     request
       .then((res) => {
         console.log(res);
-        const { count, filterdData } = useService.filterData(res);
-        setTimeout(() => {
-          setGamesData(filterdData);
-          setTotalGames(count);
-          setLoading(false);
-        }, 2000);
+        const { count, filterdData, next } = useService.filterData(res);
+        setGamesData(filterdData);
+        setTotalGames(count);
+        setNextPage(next);
+        setLoading(false);
       })
       .catch((err: AxiosError) => {
         console.log(err.message);
@@ -42,6 +43,34 @@ const content = ({
       });
     return () => cancel();
   }, [axiosParams]);
+  async function fetchGames() {
+    console.log("fetching", nextPage);
+    if (!nextPage) return;
+    setOnScrolLoding(true);
+    const { request } = await useService.onScrollFetching(nextPage);
+    const res = await request.finally(() => {
+      setOnScrolLoding(false);
+    });
+
+    const { count, filterdData, next } = useService.filterData(res);
+    setGamesData((prevGames: any) => [...prevGames, ...filterdData]);
+    setTotalGames(count); // Append new games
+    setNextPage(next); // Update next page link
+  }
+  const handleScroll = async () => {
+    // console.log("han");
+    if (
+      window.innerHeight + document.documentElement.scrollTop >=
+      document.documentElement.offsetHeight
+    ) {
+      console.log("handler");
+      await fetchGames();
+    }
+  };
+  useEffect(() => {
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, [nextPage]);
   return (
     <>
       <div className="w-full h-full flex flex-col gap-3">
@@ -56,6 +85,9 @@ const content = ({
         ) : (
           <VideosTemplate gamesData={gamesData} switchValue={switchValue} />
         )}
+        <div className={onScrolLoading ? "" : "hidden"}>
+          <Spinner switchValue={switchValue} />
+        </div>
       </div>
     </>
   );

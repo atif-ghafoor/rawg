@@ -1,5 +1,6 @@
 import apiClient, { AxiosResponse } from "./apiClient";
 import { ImageKeys } from "./AllImages";
+import axios from "axios";
 
 export type Data = {
   added: number;
@@ -30,6 +31,7 @@ class userService {
   }
   filterData(data: AxiosResponse) {
     const count = data.data.count;
+    const next = data.data.next;
     const filterdData = data.data.results.map((game: any) => {
       return {
         id: game.id,
@@ -48,7 +50,11 @@ class userService {
         }),
       };
     });
-    return { count, filterdData };
+    return { count, filterdData, next };
+  }
+  async onScrollFetching(url: string) {
+    const request = axios.get(url);
+    return { request };
   }
 }
 export default new userService();

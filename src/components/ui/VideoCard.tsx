@@ -51,7 +51,7 @@ const Video = ({
   return (
     // <div className="relative flex z-0 hover:z-10 items-center justify-center">
     <div
-      className={`video-card hover:translate-y-[-4px] rounded-xl h-fit ${cardCssClass} hover:rounded-b-none w-full flex flex-col shadow-md ${
+      className={`video-card mb-6 hover:translate-y-[-4px] rounded-xl h-fit ${cardCssClass} hover:rounded-b-none w-full flex flex-col shadow-md ${
         switchValue ? "bg-[#202020]" : "bg-gray-100"
       }`}
     >

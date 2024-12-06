@@ -4,7 +4,7 @@ interface Props {
 
 const Spinner = ({ switchValue }: Props) => {
   return (
-    <div className="flex items-start justify-center h-screen">
+    <div className={`flex items-start justify-center`}>
       <div
         className={`relative w-12 h-12 border-t-0 border-r-0 border-4 ${
           switchValue ? "border-white" : "border-black"
