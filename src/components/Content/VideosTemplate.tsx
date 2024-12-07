@@ -1,6 +1,6 @@
 import Video from "../ui/VideoCard";
 import { Data } from "../../services/useService";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 
 interface Props {
   switchValue: boolean;
@@ -9,73 +9,91 @@ interface Props {
 
 const Videos = ({ switchValue, gamesData }: Props) => {
   const gridRef = useRef<HTMLDivElement | null>(null);
+  const [cardDividedLists, setCardDividedLists] = useState<Data[][]>([]);
+  const newdata: Data[][] = [];
+  useEffect(() => {
+    if (gamesData) newdata.push(gamesData);
+    console.log("runones");
+    setCardDividedLists(newdata);
+    // setTimeout(() => {
+    setVideoTemplateResponsive();
+    // }, 300);
+  }, []);
   function setVideoTemplateResponsive() {
-    console.log("function is runing");
-    if (gamesData === null) return;
-    if (!gridRef.current) return;
+    console.log("Function is running");
+
+    // Ensure data and DOM reference are available
+    if (!gamesData || !gridRef.current) return;
     const gridWidth = gridRef.current.clientWidth || 0;
-    const videoCards = gridRef.current.querySelectorAll(".video-card");
+    const videoCards =
+      gridRef.current.querySelectorAll<HTMLDivElement>(".video-card");
+    // console.log("v", videoCards);
     if (videoCards.length === 0) return;
+    console.log("r1");
+
     const cardWidth = videoCards[0].clientWidth || 0;
     const numberOfColumns = Math.floor(gridWidth / cardWidth);
-    const numberOFDivder = Math.ceil(videoCards.length / numberOfColumns);
-    const cardDividedLists = Array.from(
-      { length: numberOfColumns },
-      (_, colIndex) => {
-        return Array.from(videoCards).slice(
-          colIndex * numberOFDivder,
-          (colIndex + 1) * numberOFDivder
-        );
-      }
+
+    if (numberOfColumns === 0) return;
+
+    // Distribute cards cyclically into columns
+    const uniqueArray = Array.from(
+      new Map(gamesData?.map((item) => [item.id, item])).values()
     );
-    gridRef.current.innerHTML = ""; // Clear the grid
-    cardDividedLists.map((listGame) => {
-      const div = document.createElement("div"); // Create a new div for the row
-      div.classList.add(".col-grid");
-      listGame.forEach((gameCard) => {
-        div.appendChild(gameCard); // Append each card to the div
-      });
-      gridRef.current?.appendChild(div); // Append the row to the grid
+    const newCardDividedLists: Data[][] = Array.from(
+      { length: numberOfColumns },
+      () => []
+    );
+
+    uniqueArray.forEach((game, index) => {
+      const columnIndex = index % numberOfColumns; // Assign to column cyclically
+      newCardDividedLists[columnIndex].push(game);
     });
-    // }
+
+    setCardDividedLists(newCardDividedLists);
+    console.log("Updated Card Lists:", newCardDividedLists);
   }
+
   useEffect(() => {
-    if (gridRef.current) {
+    setTimeout(() => {
       setVideoTemplateResponsive();
+    }, 100);
 
-      // Optionally, add a resize listener
-      const handleResize = () => setVideoTemplateResponsive();
-      window.addEventListener("resize", handleResize);
+    // Add a resize listener for responsiveness
+    const handleResize = () => setVideoTemplateResponsive();
+    window.addEventListener("resize", handleResize);
 
-      return () => {
-        window.removeEventListener("resize", handleResize);
-      };
-    }
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
   }, [gamesData]);
+
   const cardCssClass = "";
-  const uniqueArray = Array.from(
-    new Map(gamesData?.map((item) => [item.id, item])).values()
-  );
+
   return (
     <div
       ref={gridRef}
       className="mt-2 grid grid-cols-[repeat(auto-fill,minmax(310px,1fr))] gap-6"
     >
-      {uniqueArray?.map((game) => (
-        <Video
-          added={game.added}
-          cardCssClass={cardCssClass}
-          genres={game.genres}
-          img={game.background_img}
-          key={game.id}
-          metacritic={game.metacritic}
-          plartForms={game.parent_platforms}
-          releaseDate={game.released}
-          rating={game.rating}
-          ratings={game.ratings}
-          switchValue={switchValue}
-          title={game.name}
-        />
+      {cardDividedLists.map((list, columnIndex) => (
+        <div key={`column-${columnIndex}`} className="col-grid">
+          {list.map((game) => (
+            <Video
+              key={game.id} // Ensure a unique key for each game card
+              added={game.added}
+              cardCssClass={cardCssClass}
+              genres={game.genres}
+              img={game.background_img}
+              metacritic={game.metacritic}
+              plartForms={game.parent_platforms}
+              releaseDate={game.released}
+              rating={game.rating}
+              ratings={game.ratings}
+              switchValue={switchValue}
+              title={game.name}
+            />
+          ))}
+        </div>
       ))}
     </div>
   );

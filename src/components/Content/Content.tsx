@@ -73,7 +73,7 @@ const content = ({
   }, [nextPage]);
   return (
     <>
-      <div className="w-full h-full flex flex-col gap-3">
+      <div className="w-full h-full p-5 flex flex-col gap-3">
         <Heading text={headerText} />
         <Filters
           axiosParams={axiosParams}
