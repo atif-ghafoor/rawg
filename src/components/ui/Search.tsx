@@ -38,10 +38,10 @@ const Search = ({
       onSubmit={handleSubmit(onsubmit)}
       className={
         onFocus
-          ? `flex items-center rounded-full shadow-md w-fit ${
+          ? `flex items-center rounded-full shadow-md w-fit sh:w-full ${
               switchValue ? "text-black bg-white" : "text-white bg-black"
             }   transition-colors duration-300`
-          : `flex items-center rounded-full shadow-md w-fit text-[#B0B0B0] ${
+          : `flex items-center rounded-full shadow-md w-fit sh:w-full text-[#B0B0B0] ${
               switchValue
                 ? "hover:bg-white hover:text-black bg-customGray"
                 : "hover:bg-black hover:text-white bg-gray-100"
@@ -55,7 +55,7 @@ const Search = ({
         <IoSearch size={"15px"} className="" />
       </button>
       <input
-        className="bg-transparent border-0 outline-0 w-[50vw] h-[38px] rounded-full placeholder:text-[#B0B0B0] pl-3 rounded-l-none"
+        className="bg-transparent border-0 outline-0 w-[50vw] sh:w-full h-[38px] rounded-full placeholder:text-[#B0B0B0] pl-3 rounded-l-none"
         placeholder={`Search ${
           !Number.isNaN(totalGames) ? totalGames.toLocaleString() : "..."
         } games`}

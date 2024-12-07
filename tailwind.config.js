@@ -12,6 +12,10 @@ export default {
       colors: {
         customGray: "#3B3B3B",
       },
+      screens: {
+        sh: { max: "601px" },
+        fh: { max: "441px" },
+      },
     },
   },
   plugins: [

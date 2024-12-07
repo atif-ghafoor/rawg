@@ -26,7 +26,6 @@ const Videos = ({ switchValue, gamesData }: Props) => {
     if (videoCards.length === 0) return;
     const videoCardWidth = videoCards[0].clientWidth || 0;
     const noOfColumnsInGrid = Math.floor(gridWidth / videoCardWidth);
-    // if (noOfColumnsInGrid === 1) return;
 
     // Distribute cards cyclically into columns
     const uniqueArray = Array.from(

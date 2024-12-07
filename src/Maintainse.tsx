@@ -9,6 +9,7 @@ const Constant = () => {
   const [totalGames, setTotalGames] = useState<number>(NaN);
   const [searchValue, setSearchValue] = useState<string>("");
   const [axiosParams, setAxiosParams] = useState<Params>({});
+  const [sidebarVisiblty, setSidebarVisiblty] = useState(false);
   const [headerText, setHeaderText] = useState("All Games");
   useEffect(() => {
     const Body = document.body;
@@ -34,6 +35,8 @@ const Constant = () => {
         className="w-full p-[20px] transition-all duration-300"
       >
         <NavBar
+          sidebarVisiblty={sidebarVisiblty}
+          setSidebarVisiblty={setSidebarVisiblty}
           setHeaderText={setHeaderText}
           setSearchValue={setSearchValue}
           searchValue={searchValue}
@@ -43,8 +46,10 @@ const Constant = () => {
           setSwitchValue={setSwitchValue}
           axiosParams={axiosParams}
         />
-        <div className="flex gap-5">
+        <div className="flex gap-5 sh:gap-0">
           <SideBar
+            switchValue={switchValue}
+            sidebarVisiblty={sidebarVisiblty}
             headerText={headerText}
             setHeaderText={setHeaderText}
             setSearchValue={setSearchValue}

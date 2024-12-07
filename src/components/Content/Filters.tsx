@@ -30,7 +30,7 @@ const Filters = ({ switchValue, setAxiosParams, axiosParams }: Props) => {
     { name: "Nintendo", id: "7,8,9,13,83" },
   ];
   return (
-    <div className="flex gap-3 z-10">
+    <div className="flex gap-3 fh:justify-center z-10">
       <Filter
         options={options}
         selectedOrder={selectedOrder}

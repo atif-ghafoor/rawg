@@ -85,7 +85,7 @@ const Filter = ({
           optionsBarVisibltiy ? "opacity-100 scale-100" : "opacity-0 scale-0"
         } ${
           switchValue ? "bg-white text-black" : "bg-gray-100"
-        } shadow-md bg-white z-40 text-black w-full pl-5 py-2 rounded-md transition-all duration-300 ease-in-out`}
+        } shadow-md text-nowrap fh:text-[10px] bg-white z-40 text-black w-full pl-5 py-2 rounded-md transition-all duration-300 ease-in-out`}
       >
         {options.map((option) => (
           <li
@@ -113,7 +113,7 @@ const Filter = ({
           switchValue
             ? "bg-[#262626] hover:text-white/55"
             : "bg-gray-100 hover:text-black/55"
-        } shadow-md rounded-xl px-5 py-3 text-[13.5px]  flex text-nowrap items-center gap-4 transition-opacity duration-100`}
+        } shadow-md rounded-xl px-5 py-3 text-[13.5px] fh:text-[10px]  flex text-nowrap items-center gap-4 transition-opacity duration-100`}
       >
         <span>
           {options[0].name === "Relevance" && "Order by: "}
