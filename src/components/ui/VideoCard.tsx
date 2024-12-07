@@ -20,7 +20,6 @@ const icons: any = {
 
 interface Props {
   added: number;
-  cardCssClass: string;
   genres: string[];
   img: string;
   metacritic: number;
@@ -37,7 +36,6 @@ interface Props {
 
 const Video = ({
   added,
-  cardCssClass,
   genres,
   img,
   metacritic,
@@ -49,9 +47,8 @@ const Video = ({
   title,
 }: Props) => {
   return (
-    // <div className="relative flex z-0 hover:z-10 items-center justify-center">
     <div
-      className={`video-card mb-6 hover:translate-y-[-4px] rounded-xl h-fit ${cardCssClass} hover:rounded-b-none w-full flex flex-col shadow-md ${
+      className={`video-card mb-6 hover:translate-y-[-4px] rounded-xl h-fit hover:rounded-b-none w-full flex flex-col shadow-md ${
         switchValue ? "bg-[#202020]" : "bg-gray-100"
       }`}
     >
@@ -124,7 +121,6 @@ const Video = ({
         </div>
       </div>
     </div>
-    // </div>
   );
 };
 
