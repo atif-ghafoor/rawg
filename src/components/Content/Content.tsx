@@ -31,7 +31,6 @@ const content = ({
     request
       .then((res) => {
         const { count, filterdData, next } = useService.filterData(res);
-        console.log(filterdData);
         setGamesData(filterdData);
         setTotalGames(count);
         setNextPage(next);
