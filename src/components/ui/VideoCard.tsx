@@ -6,6 +6,7 @@ import { SiNintendo } from "react-icons/si";
 import { VscTerminalLinux } from "react-icons/vsc";
 import Images, { ImageKeys } from "../../services/AllImages";
 import "./video.css";
+import { useEffect, useState } from "react";
 
 const icons: any = {
   android: <BsAndroid2 key={5} />,
@@ -30,6 +31,7 @@ interface Props {
   releaseDate: string;
   rating: number;
   ratings: ImageKeys;
+  screenshots: string[];
   switchValue: boolean;
   title: string;
 }
@@ -37,23 +39,52 @@ interface Props {
 const Video = ({
   added,
   genres,
-  img,
   metacritic,
   plartForms,
   releaseDate,
   rating,
   ratings,
+  screenshots,
   switchValue,
   title,
 }: Props) => {
+  const [bgImage, setBgimage] = useState("");
+  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    const { width, left } = e.currentTarget.getBoundingClientRect();
+    const mouseX = e.clientX - left; // Get mouse position relative to the card
+    const hoverPercentage = (mouseX / width) * 100; // Calculate percentage
+    const imageIndex = Math.floor((hoverPercentage / 100) * screenshots.length);
+    if (!screenshots[imageIndex]) return;
+    setBgimage(screenshots[imageIndex]); // Set the corresponding image
+  };
+  const handleMouseLeave = () => {
+    setBgimage(screenshots[0]);
+  };
+  useEffect(() => {
+    setBgimage(screenshots[0]);
+  }, []);
   return (
     <div
       className={`video-card mb-6 hover:translate-y-[-4px] rounded-xl h-fit hover:rounded-b-none w-full flex flex-col shadow-md ${
         switchValue ? "bg-[#202020]" : "bg-gray-100"
       }`}
     >
-      <div className="video">
-        <img className="w-full rounded-md" src={img} alt="" />
+      <div
+        onMouseMove={handleMouseMove}
+        onMouseLeave={handleMouseLeave}
+        className="video"
+      >
+        <img className="w-full h-full rounded-md" src={bgImage} alt="" />
+        <div className="slides flex translate-y-[-15px] shadow-2xl shadow-black items-end gap-2 px-2">
+          {screenshots.map((shot) => (
+            <div
+              key={shot}
+              className={`w-full transition-opacity duration-500 ${
+                shot === bgImage ? "opacity-60" : "opacity-20"
+              } rounded-md h-[6px] bg-white shadow-sm`}
+            ></div>
+          ))}
+        </div>
       </div>
       <div className="otherInfo p-5 pb-7 flex flex-col gap-2">
         <div className="icons flex items-center justify-between text-[13.5px]">

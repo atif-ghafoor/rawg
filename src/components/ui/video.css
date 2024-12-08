@@ -1,4 +1,5 @@
-.MoreInfo {
+.MoreInfo,
+.slides {
   opacity: 0;
   /* Hidden by default */
   visibility: hidden;
@@ -7,6 +8,11 @@
 }
 
 .video-card:hover .MoreInfo {
+  opacity: 1;
+  visibility: visible;
+}
+
+.video-card:hover .slides {
   opacity: 1;
   visibility: visible;
 }

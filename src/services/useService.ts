@@ -9,7 +9,9 @@ export type Data = {
   id: number;
   metacritic: number;
   name: string;
+  slug: string;
   parent_platforms: { id: number; slug: string }[];
+  screenshots: string[];
   released: string;
   rating: number;
   ratings: ImageKeys;
@@ -35,6 +37,7 @@ class userService {
     const filterdData = data.data.results.map((game: any) => {
       return {
         id: game.id,
+        slug: game.slug,
         name: game.name,
         background_img: game.background_image, // corrected property name
         released: game.released,
@@ -45,6 +48,11 @@ class userService {
         parent_platforms: game.parent_platforms.map((platform: any) => {
           return platform.platform;
         }),
+        screenshots: game.short_screenshots.map(
+          (shot: { id: number; image: string }) => {
+            return shot.image;
+          }
+        ),
         genres: game.genres.map((genre: any) => {
           return genre.name;
         }),

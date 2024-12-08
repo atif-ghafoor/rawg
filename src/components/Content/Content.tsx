@@ -30,8 +30,8 @@ const content = ({
     const { request, cancel } = useService.getGames(axiosParams);
     request
       .then((res) => {
-        console.log(res);
         const { count, filterdData, next } = useService.filterData(res);
+        console.log(filterdData);
         setGamesData(filterdData);
         setTotalGames(count);
         setNextPage(next);
@@ -44,7 +44,6 @@ const content = ({
     return () => cancel();
   }, [axiosParams]);
   async function fetchGames() {
-    console.log("fetching", nextPage);
     if (!nextPage) return;
     setOnScrolLoding(true);
     const { request } = await useService.onScrollFetching(nextPage);
@@ -58,12 +57,10 @@ const content = ({
     setNextPage(next); // Update next page link
   }
   const handleScroll = async () => {
-    // console.log("han");
     if (
       window.innerHeight + document.documentElement.scrollTop >=
       document.documentElement.offsetHeight
     ) {
-      console.log("handler");
       await fetchGames();
     }
   };

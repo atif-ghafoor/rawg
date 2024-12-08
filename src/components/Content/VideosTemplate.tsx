@@ -50,11 +50,9 @@ const Videos = ({ switchValue, gamesData }: Props) => {
       // wait for intialGames first show in web
       setVideoTemplateResponsive();
     }, 100);
-
     // Add a resize listener for responsiveness
     const handleResize = () => setVideoTemplateResponsive();
     window.addEventListener("resize", handleResize);
-
     return () => {
       window.removeEventListener("resize", handleResize);
     };
@@ -78,6 +76,7 @@ const Videos = ({ switchValue, gamesData }: Props) => {
               releaseDate={game.released}
               rating={game.rating}
               ratings={game.ratings}
+              screenshots={game.screenshots}
               switchValue={switchValue}
               title={game.name}
             />
