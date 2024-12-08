@@ -9,6 +9,7 @@ Explore the live version of my game app by clicking the badge above!
 
 
 ## 📖 Key Features
+- **Theme**: Support Dark and Light theme.
 - **Dynamic Game Listing**: Fetch and display game data via the Rawg.io API.
 - **Hover Effects**: Interactive image transitions and slides on hover.
 - **Responsive Design**: Fully mobile and desktop-friendly.
