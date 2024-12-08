@@ -54,8 +54,8 @@ const SideBar = ({
       <div
         className={`h-fit transition-all duration-500 ${
           sidebarVisiblty
-            ? "sh:opacity-0 sh:scale-0"
-            : "sh:opacity-100 sh:scale-100"
+            ? "sh:opacity-100 sh:scale-100"
+            : "sh:opacity-0 sh:scale-0"
         } sh:absolute sh:z-[100] sh:pl-[20px] sh:pr-[30px] sh:shadow-md sh:rounded-md sh:mt-5 ${
           switchValue ? "sh:bg-black" : "sh:bg-white"
         } p-[20px] pl-0 w-fit max-w-fit flex flex-col`}
